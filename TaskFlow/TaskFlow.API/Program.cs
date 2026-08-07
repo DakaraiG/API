@@ -24,3 +24,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
