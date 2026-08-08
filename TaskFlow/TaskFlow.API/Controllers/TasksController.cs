@@ -5,7 +5,7 @@ namespace TaskFlow.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class TaskController : ControllerBase
+public class TasksController : ControllerBase
 {
     private static readonly List<TaskItem> Tasks =
     [
@@ -16,9 +16,18 @@ public class TaskController : ControllerBase
     ];
 
     [HttpGet]
-    public ActionResult<IEnumerable<TaskItem>> GetAll()
+    public ActionResult<IEnumerable<TaskItem>> GetAll() => Ok(Tasks);
+
+
+    [HttpGet("{id}")]
+    public ActionResult<TaskItem> GetById(int id)
     {
-        return Ok(Tasks);
+        var task = Tasks.FirstOrDefault(t => t.Id == id);
+        if (task is null)
+        {
+            return NotFound();
+        }
+        return Ok(task);
     }
 
 }
